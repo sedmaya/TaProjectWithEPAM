@@ -1,9 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="All tests" verbose="1" >
+<suite name="TaProjectWithEPAM" verbose="2">
+    <parameter name="selenium.url" value="https://www.bbc.com/"/>
     <test name="All tests">
         <packages>
-            <package name="com.epam.ta.test" />
+            <package name="tests" />
         </packages>
     </test>
 </suite>

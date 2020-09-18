@@ -1,49 +1,52 @@
-package com.epam.ta.driver;
+package driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.GeckoDriverInfo;
+import org.openqa.selenium.firefox.GeckoDriverService;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
-public class DriverSingleton {
+public class DriverManager {
 
     private static WebDriver driver;
 
+    private DriverManager() {
+    }
 
-    private DriverSingleton(){}
-
-    public static WebDriver getDriver(){
-        if (null == driver){
-            switch (System.getProperty("browser")){
+    public static WebDriver getDriver() {
+        String driverName = System.getProperty("browser");
+        if (driverName == null) {
+            driverName = "";
+        }
+        if (null == driver) {
+            switch (driverName) {
                 case "firefox": {
                     WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver();
                     break;
                 }
-                case "iExplorer": {
+                case "ie": {
                     WebDriverManager.iedriver().setup();
                     driver = new InternetExplorerDriver();
-                    break;
-                }
-                case "edge": {
-                    WebDriverManager.edgedriver().setup();
-                    driver = new EdgeDriver();
                     break;
                 }
                 default: {
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
-                    break;
                 }
             }
             driver.manage().window().maximize();
         }
         return driver;
     }
-    public static void closeDriver(){
-        driver.quit();
-        driver = null;
+
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
     }
+
 }

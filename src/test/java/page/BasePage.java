@@ -1,32 +1,29 @@
-package com.epam.ta.test;
+package page;
 
-import com.epam.ta.driver.DriverSingleton;
+import driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 
-public class CommonConditions {
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-    private static final String BASE_URL = "https://www.bbc.com";
-    protected final int WAIT_TIMEOUT_SECONDS = 30;
-
+public abstract class BasePage {
     protected WebDriver driver;
+    public final int WAIT_TIMEOUT_SECONDS = 30;
 
-    @BeforeMethod()
-    public void setUp()
-    {
-        driver = DriverSingleton.getDriver();
-        driver.manage().window().maximize();
-        driver.get(BASE_URL);
-    }
+    @FindBy(id = "sign_in")
+    private List<WebElement> signInPopUpList;
 
-    @AfterMethod(alwaysRun = true)
-    public void stopBrowser()
-    {
-        DriverSingleton.closeDriver();
+    @FindBy(xpath = "//div[@id='sign_in']//button[@aria-label='close']")
+    private WebElement signInPopUpCloseButton;
+
+    public BasePage() {
+        this.driver = DriverManager.getDriver();
+        PageFactory.initElements(driver, this);
     }
 
     public void waitForElementVisibility(long timeout, WebElement element) {
@@ -38,4 +35,6 @@ public class CommonConditions {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
+
+
 }
