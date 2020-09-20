@@ -3,10 +3,7 @@ package tests;
 import BLL.BusinessLogicLayer;
 import driver.DriverManager;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
 import util.PropertiesExtractor;
 
 import java.util.concurrent.TimeUnit;
@@ -18,13 +15,11 @@ public class CommonConditions {
     protected BusinessLogicLayer businessLogicLayer;
 
 
-    @BeforeTest
+    @BeforeMethod
     public void profileSetUp() {
         PropertiesExtractor.readProperties();
         driver = DriverManager.getDriver();
         driver.manage().window().maximize();
-
-
     }
 
     @BeforeMethod
@@ -34,11 +29,12 @@ public class CommonConditions {
     }
 
     @AfterMethod
-    public void cleanBLL() {
+    public void cleanupAfterMethod() {
+        DriverManager.closeDriver();
         businessLogicLayer = null;
     }
 
-    @AfterTest
+    @AfterClass
     public void cleanDriver() {
         DriverManager.quitDriver();
         driver = null;

@@ -16,7 +16,7 @@ public class NewsPageTests extends CommonConditions {
 
     @Test
     public void checkMainNewsTitle() {
-        Assert.assertEquals(businessLogicLayer.actualHeadlineNewsTitle(), "US to ban TikTok and WeChat downloads in 48 hours");
+        Assert.assertEquals(businessLogicLayer.actualHeadlineNewsTitle(), "Republicans vow to replace Ginsburg with Trump pick");
     }
 
     @Test
@@ -36,6 +36,6 @@ public class NewsPageTests extends CommonConditions {
         String actualFirstArticleTitle = businessLogicLayer
                 .goToCategorySearchResultsPage()
                 .actualFieldArticleName();
-        Assert.assertEquals(actualFirstArticleTitle, "Tudur's TV Flashback: Series 1: Technology");
+        Assert.assertEquals(actualFirstArticleTitle, "Geography KS1 / KS2: Living in remote places - The Shetlands and Iqaluit");
     }
 }

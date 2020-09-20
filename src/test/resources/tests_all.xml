@@ -2,9 +2,14 @@
 
 <suite name="TaProjectWithEPAM" verbose="2">
     <parameter name="selenium.url" value="https://www.bbc.com/"/>
-    <test name="All tests">
-        <packages>
-            <package name="tests" />
-        </packages>
+    <test name="Positive tests">
+        <classes>
+            <class name="tests.NewsPageTests" />
+        </classes>
+    </test>
+    <test name="Negative tests">
+        <classes>
+            <class name="tests.ShareYourCoronavirusStoryTests" />
+        </classes>
     </test>
 </suite>
